@@ -1,0 +1,12 @@
+#include<stdio.h>
+int convertOctalToDecimal(int octalNumber)
+{
+    static int n=0;
+    static int sum=0;
+    while(octalNumber)
+    {
+        sum+=octalNumber%10*pow(8,n++);
+        return convertOctalToDecimal(octalNumber/10);
+    }
+    return sum;
+}

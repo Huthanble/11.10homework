@@ -1,0 +1,124 @@
+你是一座神秘的图书馆的管理员，馆里有很多魔法书。书名由一串0-9的数字组成，并且中间没有空格，只有学习魔法的人才能看懂，而你并不能，但这并不妨碍你的工作。作为一名管理员，你的工作之一就是给来到图书馆的人们推荐书。
+
+某一天，你发现了一个前任图书管理员留下的魔法阵，能够随机地从图书馆中挑出两本书。于是你灵机一动，希望设计一个程序，可以根据不同读者的喜好，从魔法阵随机抽取的两本书中，选择更适合这位读者兴趣的那一本。
+
+由于读者A, B, C 这3位最经常来咨询，且要求较为简单，于是你打算首先为这3位读者设计推荐程序。以下是他们读书的喜好：
+
+读者 A 欣赏那些书名短的书，认为这本书的语言也会更加简洁，如果书名的长度相同，就推荐数字更大的那一本。
+
+读者 B 正在研究一种名为6的魔法，因此希望得到书名中含有数字“6"的书。如果两本书的书名都包含"6"，就推荐第一本；如果都不包含，就返回-1，表示都不满意。
+
+读者 C 有强迫症，喜欢是回文的书名。如果两本书的书名都是回文，就推荐第一本；如果都不是回文，就返回-1，表示都不满意。
+
+输入只有一行，依次是一个字符c，两个整数book1, book2。字符c表示读者的名字，只会是‘A' or ’B' or ‘C’ 。整数book1，book2表示两本被比较的书的书名。
+
+c 属于{‘A’，‘B‘，’C‘’}
+
+0 <= book1，book2 <= 2^31-1
+int find6(int a)
+{
+    while(1)
+{
+    if(!a)
+    {
+        return 0;
+    }
+    if(a%10==6)
+    {
+        return 1;
+    }
+    a/=10;
+}
+}
+int isPalindromic(int a)
+{
+    int m=0;
+    int tmp=a;
+    int q=1;
+    while(a/10)
+    {
+    	q++;
+    	a/=10;
+	}
+	a=tmp;
+	for(int j=0;;j++)
+	{
+		m+=a%10*pow(10,q-1);
+		a/=10;
+		q--;
+		if(a==0)
+		{
+			break;
+		}
+	}
+	if(m==tmp)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+int betterBookForReaderA(int book1,int book2)
+{
+    int tmp1=book1;
+    int tmp2=book2;
+    int n=0;
+    int m=0;
+    while(tmp1)
+    {
+        n++;
+        tmp1/=10;
+    }
+     while(tmp2)
+    {
+        m++;
+        tmp2/=10;
+    }
+    if(m==n)
+    {
+        return book1>book2?1:2;
+    }
+    else{
+        return m>n?1:2;
+    }
+}
+
+int betterBookForReaderB(int book1,int book2)
+{
+    int m=0;
+    int n=0;
+    m=find6(book1);
+    n=find6(book2);
+    if(m==n&&m==1)
+    {
+        return 1;
+    }
+    else if(m==n&&m==0)
+    {
+        return -1;
+    }
+    else{
+        return m>n?1:2;
+    }
+}
+
+int betterBookForReaderC(int book1,int book2)
+{
+    int m=0;
+    int n=0;
+    m=isPalindromic(book1);
+    n=isPalindromic(book2);
+    if(m==n&&m==1)
+    {
+        return 1;
+    }
+    else if(m==n&&m==0)
+    {
+        return -1;
+    }
+    else{
+        return m>n?1:2;
+    }
+}

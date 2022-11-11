@@ -1,0 +1,25 @@
+L同学有严重的拖延症，考试马上就要来了，但他还没有开始复习。于是，他决定从今天开始看ppt复习。虽然今天只看了一页，但他相信只要每天都复习前一天页数的两倍，并且再加一页，他就一定可以复习完。
+
+根据ppt的总页数，以及考试之前可以抱佛脚的天数（包括今天），你认为L同学可以复习完吗，如果可以，他还能余下几天休息呢？
+
+Input format
+输入只有一行，两个整数n，d。n表示ppt的总页数，d表示考试前还剩下几天（包括今天）。程序输入代码见main.c（已经写好）。
+0 < n <= 2^31-1
+0< d<=35
+
+Output format
+输出只有一行，表示能否休息及休息天数，具体输出格式见main.c（已经写好）。
+#include<stdio.h>
+int review(int yesterdayWork,int remainWork)
+{
+    int n=1;
+    yesterdayWork=yesterdayWork*2+1;
+    if(remainWork>0)
+    {
+        return n+review(yesterdayWork,remainWork-yesterdayWork);
+    }
+    else
+    {
+        return 0;
+    }
+}
